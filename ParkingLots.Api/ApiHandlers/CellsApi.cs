@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using ParkingLots.Api.Filters;
-using ParkingLots.Application.Cells;
-using ParkingLots.Application.Voters;
+using ParkingLots.Application.Cell;
 using ParkingLots.Domain.Dtos;
 
 namespace ParkingLots.Api.ApiHandlers;
@@ -19,10 +18,10 @@ public static class CellsApi
 
         routeHandler.MapGet("/{id}", async (IMediator mediator, Guid id) =>
         {
-            return Results.Ok(await mediator.Send(new CellsGetById(id)));
+            var cell = await mediator.Send(new CellsGetById(id));
+            return cell != null ? Results.Ok(cell) : Results.NotFound(cell);
         })
-       .Produces(StatusCodes.Status200OK, typeof(CellsDto));
-        
+       .Produces(StatusCodes.Status200OK, typeof(CellsDto));      
 
         routeHandler.MapPut("/", async (IMediator mediator, [Validate] CellsCreateCommand cells) =>
         {
@@ -34,7 +33,7 @@ public static class CellsApi
         routeHandler.MapPost("/", async (IMediator mediator, [Validate] CellsUpdateCommand cells) =>
         {
             var cell = await mediator.Send(cells);
-            return Results.Created(new Uri($"/api/cells/{cell.id}", UriKind.Relative), cell);
+            return Results.Ok(cell);
         })
         .Produces(statusCode: StatusCodes.Status200OK);
 

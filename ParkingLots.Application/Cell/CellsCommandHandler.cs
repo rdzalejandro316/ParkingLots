@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
 using MediatR;
+using ParkingLots.Domain.Entities;
 using ParkingLots.Domain.Dtos;
 using ParkingLots.Domain.Ports;
 
-namespace ParkingLots.Application.Cells;
+namespace ParkingLots.Application.Cell;
 public class CellCommandCreateHandler : IRequestHandler<CellsCreateCommand, CellsDto>
 {
     private readonly ICellsRepository _repository;
@@ -16,20 +17,15 @@ public class CellCommandCreateHandler : IRequestHandler<CellsCreateCommand, Cell
     }
     public async Task<CellsDto> Handle(CellsCreateCommand request, CancellationToken cancellationToken)
     {
-        Domain.Entities.Cells cells = new Domain.Entities.Cells {
-            CellNumber = request.cellNumber,
-            TypeVehicleId = request.typeVehicleId,
-            CellBusy= request.cellBusy
-        };
 
+        Cells cells = _mapper.Map<Cells>(request);
         var cell = await _repository.SaveCell(cells);
-        //return new CellsDto(cells.Id, cells.CellNumber, cells.TypeVehicleId, cells.CellBusy);
-        return _mapper.Map<CellsDto>(cell);        
+        return _mapper.Map<CellsDto>(cell);
     }
 
 }
 
-public class CellCommandUpdateHandler : IRequestHandler<CellsUpdateCommand, CellsDto>
+public class CellCommandUpdateHandler : IRequestHandler<CellsUpdateCommand, bool>
 {
     private readonly ICellsRepository _repository;
     private readonly IMapper _mapper;
@@ -39,11 +35,11 @@ public class CellCommandUpdateHandler : IRequestHandler<CellsUpdateCommand, Cell
         _repository = repository;
         _mapper = mapper;
     }
-    public async Task<CellsDto> Handle(CellsUpdateCommand request, CancellationToken cancellationToken)
+    public async Task<bool> Handle(CellsUpdateCommand request, CancellationToken cancellationToken)
     {
-        Domain.Entities.Cells cells = _mapper.Map<Domain.Entities.Cells>(request);
-        var cell = await _repository.UpdateCell(cells);
-        return _mapper.Map<CellsDto>(cell);
+        Cells cells = _mapper.Map<Cells>(request);
+        var succes = await _repository.UpdateCell(cells);
+        return succes;
     }
 
 }

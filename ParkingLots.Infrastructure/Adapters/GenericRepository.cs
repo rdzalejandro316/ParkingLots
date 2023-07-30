@@ -63,8 +63,8 @@ public class GenericRepository<T> : IRepository<T> where T : DomainEntity
 
     public async Task<T> GetOneAsync(Guid id)
     {
-        return await _dataset.FindAsync(id) ?? throw new ArgumentNullException(nameof(id));
-
+        //return await _dataset.FindAsync(id) ?? throw new ArgumentNullException(nameof(id));
+        return await _dataset.FindAsync(id);
     }
 
     public void UpdateAsync(T entity)

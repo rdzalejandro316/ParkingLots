@@ -12,6 +12,9 @@ public class DataContext : DbContext
     public DataContext(DbContextOptions<DataContext> options, IConfiguration config) : base(options)
     {
         _config = config;
+
+        //Database.EnsureDeleted();
+        Database.EnsureCreated();
     }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -28,6 +31,7 @@ public class DataContext : DbContext
         // modelBuilder.HasDefaultSchema(_config.GetValue<string>("SchemaName"));
         modelBuilder.Entity<Voter>();
         modelBuilder.Entity<Cells>();
+        modelBuilder.Entity<TypeVehicle>();
 
 
         // ghost properties for audit
@@ -41,6 +45,7 @@ public class DataContext : DbContext
             }
         }
 
+        
         base.OnModelCreating(modelBuilder);
     }
 }

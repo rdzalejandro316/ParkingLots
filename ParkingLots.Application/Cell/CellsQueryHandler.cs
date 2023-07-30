@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
 using MediatR;
 using ParkingLots.Domain.Dtos;
-using ParkingLots.Domain.Entities;
 using ParkingLots.Domain.Ports;
 
-namespace ParkingLots.Application.Cells;
-
+namespace ParkingLots.Application.Cell;
 public class CellsQueryGetAllHandler : IRequestHandler<CellGetAll, IEnumerable<CellsDto>>
 {
     private readonly ICellsRepository _repository;
@@ -22,8 +20,6 @@ public class CellsQueryGetAllHandler : IRequestHandler<CellGetAll, IEnumerable<C
         return _mapper.Map<IEnumerable<CellsDto>>(cell);
     }
 }
-
-
 
 public class CellsQueryGetByIdHandler : IRequestHandler<CellsGetById, CellsDto>
 {

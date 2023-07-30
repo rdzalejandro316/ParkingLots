@@ -1,7 +1,6 @@
 ﻿using ParkingLots.Domain.Entities;
 using ParkingLots.Domain.Ports;
 using ParkingLots.Infrastructure.Ports;
-using System.Data.Common;
 
 namespace ParkingLots.Infrastructure.Adapters;
 
@@ -23,7 +22,8 @@ public class CellsRepository : ICellsRepository
 
     public async Task<Cells> GetByIdCell(Guid id)
     {
-        return await _dataSource.GetOneAsync(id);
+        var cell = await _dataSource.GetOneAsync(id);
+        return cell;
     }
 
     public async Task<Cells> SaveCell(Cells cells)
@@ -33,9 +33,9 @@ public class CellsRepository : ICellsRepository
         return cell;
     }
 
-    public async Task<bool> UpdateCell(Cells cells)
-    {
-        return await _dataSource.UpdateConfirmationAsync(cells);
+    public async Task<bool> UpdateCell(Cells cell)
+    {                
+        return await _dataSource.UpdateConfirmationAsync(cell);
     }
 
     public async Task<bool> DeleteCell(Cells cells)

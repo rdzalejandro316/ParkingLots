@@ -87,8 +87,9 @@ app.UseRouting().UseEndpoints(endpoint => {
     endpoint.MapMetrics();
 });
 
-app.MapGroup("/api/voter").MapVoter().AddEndpointFilterFactory(ValidationFilter.ValidationFilterFactory);
-app.MapGroup("/api/cells").MapCells();//.AddEndpointFilterFactory(ValidationFilter.ValidationFilterFactory);
+app.MapGroup("/api/voter").MapVoter().AddEndpointFilterFactory(ValidationFilter.ValidationFilterFactory).WithTags("voter");
+app.MapGroup("/api/cells").MapCells().AddEndpointFilterFactory(ValidationFilter.ValidationFilterFactory).WithTags("cells");
+app.MapGroup("/api/typevehicle").MapTypeVehicle().AddEndpointFilterFactory(ValidationFilter.ValidationFilterFactory).WithTags("type vehicle");
 
 app.Run();
 

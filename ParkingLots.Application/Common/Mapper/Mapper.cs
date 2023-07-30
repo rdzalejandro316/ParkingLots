@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using ParkingLots.Application.Cell;
+using ParkingLots.Application.TypeVehicles;
 using ParkingLots.Domain.Dtos;
 using ParkingLots.Domain.Entities;
 
@@ -8,7 +10,13 @@ public class AutoMapperProfile : Profile
     public AutoMapperProfile()
     {
 
-        CreateMap<ParkingLots.Domain.Entities.Cells, CellsDto>();
+        CreateMap<Cells, CellsDto>();
+        CreateMap<CellsCreateCommand, Cells>();
+        CreateMap<CellsUpdateCommand, Cells>();
+
+        CreateMap<TypeVehicle, TypeVehicleDto>();
+        CreateMap<TypeVehiclesCreateCommand, TypeVehicle>();
+        CreateMap<TypeVehiclesUpdateCommand, TypeVehicle>();
 
     }
 
