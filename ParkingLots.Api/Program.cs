@@ -90,6 +90,7 @@ app.UseRouting().UseEndpoints(endpoint => {
 app.MapGroup("/api/voter").MapVoter().AddEndpointFilterFactory(ValidationFilter.ValidationFilterFactory).WithTags("voter");
 app.MapGroup("/api/cells").MapCells().AddEndpointFilterFactory(ValidationFilter.ValidationFilterFactory).WithTags("cells");
 app.MapGroup("/api/typevehicle").MapTypeVehicle().AddEndpointFilterFactory(ValidationFilter.ValidationFilterFactory).WithTags("type vehicle");
+app.MapGroup("/api/vehicle").MapVehicle().AddEndpointFilterFactory(ValidationFilter.ValidationFilterFactory).WithTags("vehicle");
 
 app.Run();
 

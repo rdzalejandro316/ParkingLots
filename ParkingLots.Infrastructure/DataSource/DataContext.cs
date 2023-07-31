@@ -32,6 +32,7 @@ public class DataContext : DbContext
         modelBuilder.Entity<Voter>();
         modelBuilder.Entity<Cells>();
         modelBuilder.Entity<TypeVehicle>();
+        modelBuilder.Entity<Vehicle>();
 
 
         // ghost properties for audit
