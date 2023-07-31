@@ -11,9 +11,9 @@ public class AutoMapperProfile : Profile
     public AutoMapperProfile()
     {
 
-        CreateMap<Cells, CellsDto>();
-        CreateMap<CellsCreateCommand, Cells>();
-        CreateMap<CellsUpdateCommand, Cells>();
+        CreateMap<ParkingHistory, ParkingHistoryDto>();
+        //CreateMap<ParkingHistoryCreateCommand, ParkingHistory>();
+        //CreateMap<ParkingHistoryUpdateCommand, ParkingHistory>();
 
         CreateMap<TypeVehicle, TypeVehicleDto>();
         CreateMap<TypeVehiclesCreateCommand, TypeVehicle>();
@@ -22,6 +22,10 @@ public class AutoMapperProfile : Profile
         CreateMap<Vehicle, VehicleDto>();
         CreateMap<VehicleCreateCommand, Vehicle>();
         CreateMap<VehicleUpdateCommand, Vehicle>();
+
+        CreateMap<Cells, CellsDto>();
+        CreateMap<CellsCreateCommand, Cells>();
+        CreateMap<CellsUpdateCommand, Cells>();        
     }
 
 }

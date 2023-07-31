@@ -1,10 +1,9 @@
 ﻿using Dapper;
 using ParkingLots.Domain.Dto;
 using ParkingLots.Domain.Ports;
-using ParkingLots.Infrastructure.DataSource;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
-
+using ParkingLots.Infrastructure.DataSource;
 
 namespace ParkingLots.Infrastructure.Adapters;
 

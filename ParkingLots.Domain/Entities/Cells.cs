@@ -2,7 +2,9 @@
 public class Cells : DomainEntity
 {    
     public string CellNumber { get; init; }
-    public int TypeVehicleId { get; init; }
+    public Guid TypeVehicleId { get; set; }
     public bool CellBusy { get; init; }
+    public TypeVehicle TypeVehicle { get; set; }
+
 }
 

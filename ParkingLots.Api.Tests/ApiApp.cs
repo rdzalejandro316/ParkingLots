@@ -1,10 +1,9 @@
-﻿
-using ParkingLots.Infrastructure.DataSource;
-using Microsoft.AspNetCore.Mvc.Testing;
+﻿using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
+using ParkingLots.Infrastructure.DataSource;
 
 namespace ParkingLots.Api.Tests;
 

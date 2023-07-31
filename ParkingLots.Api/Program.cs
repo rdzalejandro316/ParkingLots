@@ -2,7 +2,6 @@ using ParkingLots.Api.ApiHandlers;
 using ParkingLots.Api.Filters;
 using ParkingLots.Api.Middleware;
 using FluentValidation;
-using ParkingLots.Infrastructure.DataSource;
 using ParkingLots.Infrastructure.Extensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +14,7 @@ using Serilog.Sinks.Elasticsearch;
 using Prometheus;
 using System.IO;
 using ParkingLots.Application.Common.Mapper;
+using ParkingLots.Infrastructure.DataSource;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -22,13 +22,16 @@ var config = builder.Configuration;
 builder.Services.AddValidatorsFromAssemblyContaining<Program>(ServiceLifetime.Singleton);
 
 builder.Services.AddDbContext<DataContext>(opts =>
-{    
-    var current =  Environment.CurrentDirectory;
+{
+    var current = Environment.CurrentDirectory;
     string pathSqlLiteBd = Path.GetFullPath(Path.Combine(current, @"..\"));
     string BDSqlLite = @$"{pathSqlLiteBd}\BDSqlLite";
     string DbPath = System.IO.Path.Join(BDSqlLite, config.GetConnectionString("sqlLiteExample"));
-    opts.UseSqlite($"Data Source={DbPath}");    
+    opts.UseSqlite($"Data Source={DbPath}");
 });
+
+//builder.Services.AddDbContext<DataContext>();
+
 
 builder.Services.AddHealthChecks()
     .AddDbContextCheck<DataContext>()
@@ -87,10 +90,11 @@ app.UseRouting().UseEndpoints(endpoint => {
     endpoint.MapMetrics();
 });
 
-app.MapGroup("/api/voter").MapVoter().AddEndpointFilterFactory(ValidationFilter.ValidationFilterFactory).WithTags("voter");
-app.MapGroup("/api/cells").MapCells().AddEndpointFilterFactory(ValidationFilter.ValidationFilterFactory).WithTags("cells");
-app.MapGroup("/api/typevehicle").MapTypeVehicle().AddEndpointFilterFactory(ValidationFilter.ValidationFilterFactory).WithTags("type vehicle");
-app.MapGroup("/api/vehicle").MapVehicle().AddEndpointFilterFactory(ValidationFilter.ValidationFilterFactory).WithTags("vehicle");
+app.MapGroup("/api/voter").MapVoter().AddEndpointFilterFactory(ValidationFilter.ValidationFilterFactory).WithTags("Voter");
+app.MapGroup("/api/cells").MapCells().AddEndpointFilterFactory(ValidationFilter.ValidationFilterFactory).WithTags("Cells");
+app.MapGroup("/api/typeVehicle").MapTypeVehicle().AddEndpointFilterFactory(ValidationFilter.ValidationFilterFactory).WithTags("Type Vehicle");
+app.MapGroup("/api/vehicle").MapVehicle().AddEndpointFilterFactory(ValidationFilter.ValidationFilterFactory).WithTags("Vehicle");
+app.MapGroup("/api/parkingHistory").MapParkingHistory().AddEndpointFilterFactory(ValidationFilter.ValidationFilterFactory).WithTags("Parking History");
 
 app.Run();
 

@@ -1,6 +1,6 @@
 using ParkingLots.Domain.Ports;
-using ParkingLots.Infrastructure.DataSource;
 using Microsoft.EntityFrameworkCore;
+using ParkingLots.Infrastructure.DataSource;
 
 namespace ParkingLots.Infrastructure.Adapters;
 

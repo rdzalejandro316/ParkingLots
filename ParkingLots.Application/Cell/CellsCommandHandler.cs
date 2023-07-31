@@ -35,6 +35,7 @@ public class CellCommandUpdateHandler : IRequestHandler<CellsUpdateCommand, bool
         _repository = repository;
         _mapper = mapper;
     }
+
     public async Task<bool> Handle(CellsUpdateCommand request, CancellationToken cancellationToken)
     {
         Cells cells = _mapper.Map<Cells>(request);
