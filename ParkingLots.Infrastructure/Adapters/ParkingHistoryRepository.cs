@@ -26,18 +26,20 @@ public class ParkingHistoryRepository : IParkingHistoryRepository
         return await _dataSource.GetOneAsync(id);
     }
 
-    public Task<ParkingHistory> SaveParkingHistory(ParkingHistory parkingHistory)
+    public async Task<ParkingHistory> SaveParkingHistory(ParkingHistory parkingHistory)
     {
-        throw new NotImplementedException();
+        var _parkingHistory = await _dataSource.AddAsync(parkingHistory);
+        await _unitOfWork.SaveAsync();
+        return _parkingHistory;
     }
 
-    public Task<bool> UpdateParkingHistory(ParkingHistory parkingHistory)
+    public async Task<bool> UpdateParkingHistory(ParkingHistory parkingHistory)
     {
-        throw new NotImplementedException();
+        return await _dataSource.UpdateConfirmationAsync(parkingHistory);
     }
 
-    public Task<bool> DeleteParkingHistory(ParkingHistory parkingHistory)
+    public async Task<bool> DeleteParkingHistory(ParkingHistory parkingHistory)
     {
-        throw new NotImplementedException();
+        return await _dataSource.DeleteConfirmationAsync(parkingHistory);
     }
 }

@@ -27,6 +27,11 @@ public class VehiclesRepository : IVehiclesRepository
         return cell;
     }
 
+    public async Task<Vehicle> GetByLicensePlateVehicle(string licensePlate)
+    {
+        return await _dataSource.FirstOrDefaultAsync(c => c.LicensePlate == licensePlate);
+    }
+
     public async Task<Vehicle> SaveVehicle(Vehicle vehicles)
     {
         var vehicle = await _dataSource.AddAsync(vehicles);
@@ -42,5 +47,5 @@ public class VehiclesRepository : IVehiclesRepository
     public async Task<bool> DeleteVehicle(Vehicle vehicles)
     {
         return await _dataSource.DeleteConfirmationAsync(vehicles);
-    }
+    }    
 }

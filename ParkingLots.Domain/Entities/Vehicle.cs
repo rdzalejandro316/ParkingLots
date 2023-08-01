@@ -8,5 +8,5 @@ public class Vehicle : DomainEntity
     public Guid TypeVehicleId { get; set; }
     public int CylinderCapacity { get; set; }
     public TypeVehicle TypeVehicle { get; set; }
-
+    public List<ParkingHistory> ParkingHistorys { get; set; }
 }

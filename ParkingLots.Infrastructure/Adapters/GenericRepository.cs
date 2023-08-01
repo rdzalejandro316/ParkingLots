@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using System.Data;
 using ParkingLots.Infrastructure.DataSource;
+using static Dapper.SqlMapper;
+using System.Security.Cryptography;
 
 namespace ParkingLots.Infrastructure.Adapters;
 
@@ -67,6 +69,21 @@ public class GenericRepository<T> : IRepository<T> where T : DomainEntity
         return await _dataset.FindAsync(id);
     }
 
+    public async Task<T> GetByIdWithIncludesAsync(Expression<Func<T, bool>> where, Expression<Func<T, object>> include)
+    {
+        return await _dataset.AsQueryable().Include(include).Where(where).FirstOrDefaultAsync();
+    }
+
+    public async Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties)
+    {
+        IQueryable<T> query = _dataset.AsQueryable();
+        query = PerformInclusions(includeProperties, query);
+        return await query.FirstOrDefaultAsync(where);
+    }
+    private static IQueryable<T> PerformInclusions(IEnumerable<Expression<Func<T, object>>> includeProperties, IQueryable<T> query)
+    {
+        return includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+    }
     public void UpdateAsync(T entity)
     {
         _dataset.Update(entity);

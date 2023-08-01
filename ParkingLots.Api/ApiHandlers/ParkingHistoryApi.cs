@@ -24,10 +24,16 @@ public static class ParkingHistoryApi
        .Produces(StatusCodes.Status200OK, typeof(ParkingHistoryDto));
 
 
-
-        routeHandler.MapPut("/", async (IMediator mediator, [Validate] ParkingHistoryInputCreateCommand parkingHistoryInput) =>
+        routeHandler.MapPut("registerInput", async (IMediator mediator, [Validate] ParkingHistoryInputCreateCommand parkingHistoryInput) =>
         {
             var parkingHistory = await mediator.Send(parkingHistoryInput);
+            return Results.Created(new Uri($"/api/parkingHistory/{parkingHistory.id}", UriKind.Relative), parkingHistory);
+        })
+        .Produces(statusCode: StatusCodes.Status201Created);
+
+        routeHandler.MapPut("registerOutput", async (IMediator mediator, [Validate] ParkingHistoryOutputUpdateCommand parkingHistoryOutput) =>
+        {
+            var parkingHistory = await mediator.Send(parkingHistoryOutput);
             return Results.Created(new Uri($"/api/parkingHistory/{parkingHistory.id}", UriKind.Relative), parkingHistory);
         })
         .Produces(statusCode: StatusCodes.Status201Created);

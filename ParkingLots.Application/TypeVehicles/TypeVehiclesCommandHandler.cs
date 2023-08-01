@@ -23,7 +23,6 @@ public class TypeVehiclesCommandCreateHandler : IRequestHandler<TypeVehiclesCrea
         var typeVehicles = await _repository.SaveTypeVehicle(typeVehicle);
         return _mapper.Map<TypeVehicleDto>(typeVehicles);
     }
-
 }
 
 public class TypeVehiclesCommandUpdateHandler : IRequestHandler<TypeVehiclesUpdateCommand, bool>

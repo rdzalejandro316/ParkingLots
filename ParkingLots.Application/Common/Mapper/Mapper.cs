@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ParkingLots.Application.Cell;
+using ParkingLots.Application.ParkingHistorys;
 using ParkingLots.Application.TypeVehicles;
 using ParkingLots.Application.Vehicles;
 using ParkingLots.Domain.Dtos;
@@ -11,9 +12,9 @@ public class AutoMapperProfile : Profile
     public AutoMapperProfile()
     {
 
-        CreateMap<ParkingHistory, ParkingHistoryDto>();
-        //CreateMap<ParkingHistoryCreateCommand, ParkingHistory>();
-        //CreateMap<ParkingHistoryUpdateCommand, ParkingHistory>();
+        CreateMap<ParkingHistory, ParkingHistoryDto>();        
+        CreateMap<ParkingHistoryInputCreateCommand, ParkingHistoryInputDto>();
+        CreateMap<ParkingHistoryOutputUpdateCommand, ParkingHistoryOutPutDto>();        
 
         CreateMap<TypeVehicle, TypeVehicleDto>();
         CreateMap<TypeVehiclesCreateCommand, TypeVehicle>();
